@@ -1,0 +1,50 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven {
+		url "https://artifacts.alfresco.com/nexus/content/repositories/public/"
+	}
+}
+
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'idea'
+
+jar {
+	baseName = 'spring-cloud-cloudfoundry-service-broker-demo'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	springBootCfServiceBrokerVersion = '1.0.0.RELEASE'
+}
+
+dependencies {
+	compile('org.codehaus.groovy:groovy:2.4.7')
+	compile('org.springframework.boot:spring-boot-starter')
+	compile("org.springframework.cloud:spring-cloud-cloudfoundry-service-broker:${springBootCfServiceBrokerVersion}")
+	compile('io.springfox:springfox-swagger2:2.6.0')
+	compile('commons-io:commons-io:2.5')
+	runtime('io.springfox:springfox-swagger-ui:2.6.0')
+	runtime('org.springframework.boot:spring-boot-starter-tomcat')
+	testCompile("org.springframework.cloud:spring-cloud-cloudfoundry-service-broker:${springBootCfServiceBrokerVersion}")
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+}
